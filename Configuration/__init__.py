@@ -9,25 +9,20 @@ class Config:
     This class uses the singletone design patters and your goal is provide some methods to access and edit the
     configuration file of application
     """
-    __instance = None
+    _instance = None
 
     def __init__(self, file_location: str = "setup.ini"):
         self.logger = logging.getLogger(__name__)
-        self.logger.info(f"Contructor: <file_location> = {file_location}")
-        if Config.__instance is None:
+        self.logger.info(f"<file_location> = {file_location}")
+        if Config._instance is None:
             if os.path.exists(file_location):
+                self.logger.debug(f"File {file_location} founded!")
                 self.__file_path = file_location
                 self.__config = configparser.ConfigParser()
                 self.__config.read(file_location)
-                Config.__instance = self
+                Config._instance = self
             else:
                 raise Errors.FileNotFounded("The configuration file wasn't founded")
-
-    @staticmethod
-    def get_instance():
-        if Config.__instance is None:
-            Config()
-        return Config.__instance
 
     def _set_property(self, property_path: str, property_value):
         property_path_split = property_path.split(":")
