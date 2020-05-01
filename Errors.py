@@ -33,4 +33,13 @@ class FileNotFounded(ApplicationError):
     """
 
 
+class InternalError(ApplicationError):
+    """
+    The InternalError exception is raised when a operation error occurs in the application
+    """
 
+
+class ConnectionFailure(ApplicationError):
+    """
+    The ConnectionError exception is raised when a occurs a failure to connect with the specified server
+    """
